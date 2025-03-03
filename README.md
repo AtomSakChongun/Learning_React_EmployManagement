@@ -16,6 +16,6 @@ Follow these steps to set up the project locally:
    ```bash
    git clone git clone https://github.com/your-username/employee-management-system.git
    cd employee-management-system
-2 **Install Package**
+2. **Install Package**
    ```bash
    npm install
