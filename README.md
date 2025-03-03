@@ -1,21 +1,12 @@
-# Employee Management System
+# React + Vite
 
-This project is an Employee Management System built using **React**, **Tailwind CSS**, and **Material-UI (MUI)**. The system is designed to manage employee data and display it in an interactive and user-friendly way.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-## Features
+Currently, two official plugins are available:
 
-- **React-based Components**: Build reusable and maintainable components for the user interface.
-- **Material-UI (MUI)**: Use MUI components for the UI, including buttons, cards, tables, and dialogs.
-- **Tailwind CSS**: Use Tailwind for custom and responsive styling to ensure the app is mobile-friendly and looks great on all devices.
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## Installation
+## Expanding the ESLint configuration
 
-Follow these steps to set up the project locally:
-
-1. **Clone the repository**:
-   ```bash
-   git clone git clone https://github.com/your-username/employee-management-system.git
-   cd employee-management-system
-2. **Install Package**
-   ```bash
-   npm install
+If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
