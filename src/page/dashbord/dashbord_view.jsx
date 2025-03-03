@@ -13,7 +13,7 @@ const Dashboard_View = () => {
       
       email: "somchai@company.com",
       phone: "081-234-5678",
-      hireDate: "2020-05-15",
+     
       salary: 45000,
       status: "Active",
     },
@@ -24,7 +24,7 @@ const Dashboard_View = () => {
 
       email: "somying@company.com",
       phone: "089-876-5432",
-      hireDate: "2019-10-22",
+      
       salary: 52000,
       status: "Active",
     },
@@ -35,7 +35,7 @@ const Dashboard_View = () => {
      
       email: "prasit@company.com",
       phone: "064-555-4444",
-      hireDate: "2021-03-10",
+     
       salary: 38000,
       status: "Active",
     },
@@ -46,7 +46,7 @@ const Dashboard_View = () => {
       
       email: "wipa@company.com",
       phone: "092-123-7890",
-      hireDate: "2018-11-05",
+      
       salary: 58000,
       status: "Active",
     },
@@ -57,7 +57,7 @@ const Dashboard_View = () => {
      
       email: "thana@company.com",
       phone: "086-999-8888",
-      hireDate: "2022-01-20",
+      
       salary: 42000,
       status: "Active",
     },
@@ -69,7 +69,7 @@ const Dashboard_View = () => {
       
       email: "preecha@company.com",
       phone: "082-333-4444",
-      hireDate: "2021-06-15",
+     
       salary: 40000,
       status: "Active",
     },
@@ -168,7 +168,6 @@ const Dashboard_View = () => {
     { field: "department", headerName: "แผนก", flex: 1 },
     { field: "email", headerName: "อีเมล", flex: 1 },
     { field: "phone", headerName: "เบอร์โทร", flex: 1 },
-    { field: "hireDate", headerName: "วันที่เริ่มงาน", flex: 1 },
     {
       field: "actions",
       headerName: "การดำเนินการ",
@@ -192,17 +191,6 @@ const Dashboard_View = () => {
 
   return (
     <div className="min-h-screen bg-gray-100">
-      {/* Header */}
-      <header className="bg-gray-800 shadow-md">
-        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <h1 className="text-2xl font-bold text-white">แดชบอร์ดพนักงาน</h1>
-          <div className="flex items-center space-x-4">
-            <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-indigo-600 font-bold">
-              AD
-            </div>
-          </div>
-        </div>
-      </header>
 
       {/* Main content */}
       <main className="m-4">
