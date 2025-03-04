@@ -14,7 +14,7 @@ Follow these steps to set up the project locally:
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/your-username/employee-management-system.git
+   git clone https://github.com/AtomSakChongun/Learning_React_EmployManagement.git
    cd employee-management-system
    ```
 
