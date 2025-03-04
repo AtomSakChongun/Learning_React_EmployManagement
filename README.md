@@ -30,7 +30,7 @@ Follow these steps to set up the project locally:
 
 ## Mock Data
 
-This project uses mock data for demonstration purposes. No actual database connection is required to test the functionality. Sample employee data is located in the `src/data/` directory.
+This project uses mock data for demonstration purposes. No actual database connection is required to test the functionality
 
 ## Technologies
 

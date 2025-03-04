@@ -1,69 +1,43 @@
-import React, { useState, useMemo } from "react";
-import { Card, InputAdornment, TextField, Button } from "@mui/material";
+import React, { useState, useMemo, useEffect } from "react";
+import {
+  Card,
+  InputAdornment,
+  TextField,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+} from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { Users, Eye, Edit, Trash, Search, Download } from "lucide-react";
 import * as XLSX from "xlsx";
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
+import employeesData from "../../data/employee.json"; // Import the JSON file
 
 const Dashboard_View = () => {
+  const navigate = useNavigate();
+  const role = Cookies.get("role");
+  const token = Cookies.get("token");
   const [search, setSearch] = useState("");
+  const [employees, setEmployees] = useState(employeesData);
+  const [openDialog, setOpenDialog] = useState(false);
+  const [currentEmployee, setCurrentEmployee] = useState({
+    id: null,
+    name: "",
+    department: "",
+    email: "",
+    phone: "",
+    salary: "",
+    status: "Active",
+  });
 
-  // Mockup employee data
-  const employees = [
-    {
-      id: 1,
-      name: "สมชาย ใจดี",
-      department: "วิศวกรรม",
-      email: "somchai@company.com",
-      phone: "081-234-5678",
-      salary: 45000,
-      status: "Active",
-    },
-    {
-      id: 2,
-      name: "สมหญิง รักเรียน",
-      department: "การตลาด",
-      email: "somying@company.com",
-      phone: "089-876-5432",
-      salary: 52000,
-      status: "Active",
-    },
-    {
-      id: 3,
-      name: "ประสิทธิ์ มานะ",
-      department: "การเงิน",
-      email: "prasit@company.com",
-      phone: "064-555-4444",
-      salary: 38000,
-      status: "Active",
-    },
-    {
-      id: 4,
-      name: "วิภา จริงใจ",
-      department: "ทรัพยากรบุคคล",
-      email: "wipa@company.com",
-      phone: "092-123-7890",
-      salary: 58000,
-      status: "Active",
-    },
-    {
-      id: 5,
-      name: "ธนา ฟ้าใส",
-      department: "วิศวกรรม",
-      email: "thana@company.com",
-      phone: "086-999-8888",
-      salary: 42000,
-      status: "Active",
-    },
-    {
-      id: 6,
-      name: "ปรีชา มั่นคง",
-      department: "ขาย",
-      email: "preecha@company.com",
-      phone: "082-333-4444",
-      salary: 40000,
-      status: "Active",
-    },
-  ];
+  useEffect(() => {
+    if (!token) {
+      navigate("/login");
+    }
+  }, []);
 
   const filteredEmployees = useMemo(() => {
     return employees.filter(
@@ -181,19 +155,71 @@ const Dashboard_View = () => {
       flex: 1,
       renderCell: (params) => (
         <div className="flex space-x-2 justify-center items-center">
-          <button className="p-1 rounded-full bg-blue-100 text-blue-600 hover:bg-blue-200 transition-colors">
+          <button
+            className="p-1 rounded-full bg-blue-100 text-blue-600 hover:bg-blue-200 transition-colors"
+            onClick={() => handleView(params.row.id)}
+          >
             <Eye size={18} />
           </button>
-          <button className="p-1 rounded-full bg-amber-100 text-amber-600 hover:bg-amber-200 transition-colors">
+          <button
+            className="p-1 rounded-full bg-blue-100 text-blue-600 hover:bg-blue-200 transition-colors"
+            onClick={() => handleEdit(params.row)}
+          >
             <Edit size={18} />
           </button>
-          <button className="p-1 rounded-full bg-rose-100 text-rose-600 hover:bg-rose-200 transition-colors">
+          <button
+            className="p-1 rounded-full bg-rose-100 text-rose-600 hover:bg-rose-200 transition-colors"
+            onClick={() => handleDelete(params.row.id)}
+          >
             <Trash size={18} />
           </button>
         </div>
       ),
     },
   ];
+
+  const handleAdd = () => {
+    setCurrentEmployee({
+      id: null,
+      name: "",
+      department: "",
+      email: "",
+      phone: "",
+      salary: "",
+      status: "Active",
+    });
+    setOpenDialog(true);
+  };
+
+  const handleView = (id) => {
+    navigate(`/user-info/view/${id}`);
+  };
+
+  const handleEdit = (employee) => {
+    setCurrentEmployee(employee);
+    setOpenDialog(true);
+  };
+
+  const handleDelete = (id) => {
+    setEmployees(employees.filter((employee) => employee.id !== id));
+  };
+
+  const handleSave = () => {
+    if (currentEmployee.id) {
+      setEmployees(
+        employees.map((employee) =>
+          employee.id === currentEmployee.id ? currentEmployee : employee
+        )
+      );
+    } else {
+      const newEmployee = {
+        ...currentEmployee,
+        id: employees.length + 1,
+      };
+      setEmployees([...employees, newEmployee]);
+    }
+    setOpenDialog(false);
+  };
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -244,12 +270,14 @@ const Dashboard_View = () => {
             <h2 className="text-lg font-bold text-gray-800">
               ภาพรวมพนักงาน ({totalEmployees} คน)
             </h2>
-            <button className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">
-              + เพิ่มพนักงานใหม่
-            </button>
+            <div className="flex justify-end mb-4">
+              <Button onClick={handleAdd} variant="contained" color="primary">
+                + เพิ่มพนักงานใหม่
+              </Button>
+            </div>
           </div>
           <div className="p-6">
-            <div style={{ minHeight: 400, width: "100%" }}>
+            <div style={{ height: 400, width: "100%" }}>
               <DataGrid
                 rows={filteredEmployees}
                 columns={columns}
@@ -259,6 +287,77 @@ const Dashboard_View = () => {
           </div>
         </div>
       </main>
+
+      {/* Dialog for adding/editing employee */}
+      <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
+        <DialogTitle>
+          {currentEmployee.id ? "Edit Employee" : "Add Employee"}
+        </DialogTitle>
+        <DialogContent>
+          <TextField
+            autoFocus
+            margin="dense"
+            label="Name"
+            type="text"
+            fullWidth
+            value={currentEmployee.name}
+            onChange={(e) =>
+              setCurrentEmployee({ ...currentEmployee, name: e.target.value })
+            }
+          />
+          <TextField
+            margin="dense"
+            label="Department"
+            type="text"
+            fullWidth
+            value={currentEmployee.department}
+            onChange={(e) =>
+              setCurrentEmployee({
+                ...currentEmployee,
+                department: e.target.value,
+              })
+            }
+          />
+          <TextField
+            margin="dense"
+            label="Email"
+            type="email"
+            fullWidth
+            value={currentEmployee.email}
+            onChange={(e) =>
+              setCurrentEmployee({ ...currentEmployee, email: e.target.value })
+            }
+          />
+          <TextField
+            margin="dense"
+            label="Phone"
+            type="text"
+            fullWidth
+            value={currentEmployee.phone}
+            onChange={(e) =>
+              setCurrentEmployee({ ...currentEmployee, phone: e.target.value })
+            }
+          />
+          <TextField
+            margin="dense"
+            label="Salary"
+            type="number"
+            fullWidth
+            value={currentEmployee.salary}
+            onChange={(e) =>
+              setCurrentEmployee({ ...currentEmployee, salary: e.target.value })
+            }
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setOpenDialog(false)} color="secondary">
+            Cancel
+          </Button>
+          <Button onClick={handleSave} color="primary">
+            Save
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 };

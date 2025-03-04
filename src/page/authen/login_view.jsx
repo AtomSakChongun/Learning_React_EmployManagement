@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Lock, Mail, EyeOff, Eye } from 'lucide-react';
 import Cookies from 'js-cookie';
+import LoginInfoBox from '../../component/etc/logindetail';
 
 const LoginView = () => {
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ const LoginView = () => {
       // Simulating API call with timeout
       setTimeout(() => {
         // For demonstration - in real app, replace with actual API call
-        if (email === 'admin@example.com' && password === 'password') {
+        if (email === 'admin@email.com' && password === 'password') {
           // Set cookies upon successful login
           Cookies.set('token', 'sample-token-value');
           Cookies.set('role', '1');
@@ -124,11 +125,12 @@ const LoginView = () => {
           </div>
         </form>
 
-        <div className="text-center mt-6">
+        <div className="text-center mt-6 mb-4">
           <a href="#" className="text-sm text-blue-400 hover:text-blue-300 transition-colors">
             ลืมรหัสผ่าน?
           </a>
         </div>
+        <LoginInfoBox />
       </div>
     </div>
   );

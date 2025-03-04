@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Button,
@@ -7,14 +7,14 @@ import {
   Typography,
   Grid,
   Paper,
-  Card,
 } from "@mui/material";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { th } from "date-fns/locale";
+import { useParams, useNavigate } from "react-router-dom";
+import employeesData from "../../data/employee.json"; // Import the JSON file
 
 const UserInfo_View = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     employeeId: "",
     password: "",
@@ -26,26 +26,23 @@ const UserInfo_View = () => {
     hireDate: null,
   });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
-
-  const handleDateChange = (date) => {
-    setFormData({
-      ...formData,
-      hireDate: date,
-    });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Form submitted:", formData);
-    // Add your form submission logic here
-  };
+  useEffect(() => {
+    if (id) {
+      const employee = employeesData.find((emp) => emp.id === parseInt(id));
+      if (employee) {
+        setFormData({
+          employeeId: employee.id,
+          password: "", // Password should not be pre-filled for security reasons
+          firstName: employee.name.split(" ")[0],
+          lastName: employee.name.split(" ")[1],
+          department: employee.department,
+          email: employee.email,
+          phone: employee.phone,
+          hireDate: null, // Assuming hireDate is not available in the JSON data
+        });
+      }
+    }
+  }, [id]);
 
   return (
     <Container maxWidth={false}>
@@ -54,11 +51,11 @@ const UserInfo_View = () => {
           ข้อมูลพนักงาน
         </Typography>
 
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 3 }}>
+        <Box component="form" noValidate sx={{ mt: 3 }}>
           <Grid container spacing={3}>
             {/* Form Fields */}
             <Grid item xs={12} md={6}>
-              <Typography>รหัสพนักงาน</Typography>
+              <Typography marginBottom={1}>รหัสพนักงาน</Typography>
               <TextField
                 required
                 fullWidth
@@ -66,12 +63,12 @@ const UserInfo_View = () => {
                 label="รหัสพนักงาน"
                 name="employeeId"
                 value={formData.employeeId}
-                onChange={handleChange}
                 size="small"
+                disabled
               />
             </Grid>
             <Grid item xs={12} md={6}>
-              <Typography>รหัสผ่าน</Typography>
+              <Typography marginBottom={1}>รหัสผ่าน</Typography>
               <TextField
                 required
                 fullWidth
@@ -80,12 +77,12 @@ const UserInfo_View = () => {
                 name="password"
                 type="password"
                 value={formData.password}
-                onChange={handleChange}
                 size="small"
+                disabled
               />
             </Grid>
             <Grid item xs={12} md={6}>
-              <Typography>ชื่อจริง</Typography>
+              <Typography marginBottom={1}>ชื่อจริง</Typography>
               <TextField
                 required
                 fullWidth
@@ -93,12 +90,12 @@ const UserInfo_View = () => {
                 label="ชื่อจริง"
                 name="firstName"
                 value={formData.firstName}
-                onChange={handleChange}
                 size="small"
+                disabled
               />
             </Grid>
             <Grid item xs={12} md={6}>
-              <Typography>นามสกุล</Typography>
+              <Typography marginBottom={1}>นามสกุล</Typography>
               <TextField
                 required
                 fullWidth
@@ -106,12 +103,12 @@ const UserInfo_View = () => {
                 label="นามสกุล"
                 name="lastName"
                 value={formData.lastName}
-                onChange={handleChange}
                 size="small"
+                disabled
               />
             </Grid>
             <Grid item xs={12} md={6}>
-              <Typography>แผนก</Typography>
+              <Typography marginBottom={1}>แผนก</Typography>
               <TextField
                 required
                 fullWidth
@@ -119,12 +116,12 @@ const UserInfo_View = () => {
                 label="แผนก"
                 name="department"
                 value={formData.department}
-                onChange={handleChange}
                 size="small"
+                disabled
               />
             </Grid>
             <Grid item xs={12} md={6}>
-              <Typography>อีเมล</Typography>
+              <Typography marginBottom={1}>อีเมล</Typography>
               <TextField
                 required
                 fullWidth
@@ -133,12 +130,12 @@ const UserInfo_View = () => {
                 name="email"
                 type="email"
                 value={formData.email}
-                onChange={handleChange}
                 size="small"
+                disabled
               />
             </Grid>
             <Grid item xs={12} md={6}>
-              <Typography>เบอร์โทร</Typography>
+              <Typography marginBottom={1}>เบอร์โทร</Typography>
               <TextField
                 required
                 fullWidth
@@ -146,8 +143,8 @@ const UserInfo_View = () => {
                 label="เบอร์โทร"
                 name="phone"
                 value={formData.phone}
-                onChange={handleChange}
                 size="small"
+                disabled
               />
             </Grid>
 
@@ -166,20 +163,9 @@ const UserInfo_View = () => {
                   color="black"
                   size="large"
                   sx={{ fontWeight: "bold" }}
-                  onClick={() => console.log("Go back")}
+                  onClick={() => navigate(-1)}
                 >
                   กลับ
-                </Button>
-              </Grid>
-              <Grid item marginX={1}>
-                <Button
-                  type="submit"
-                  variant="contained"
-                  color="primary"
-                  size="large"
-                  sx={{ fontWeight: "bold" }}
-                >
-                  บันทึกข้อมูล
                 </Button>
               </Grid>
             </Grid>

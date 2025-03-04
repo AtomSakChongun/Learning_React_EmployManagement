@@ -21,18 +21,7 @@ const Sidebar = () => {
 
   const menuItems = [
     { title: 'หน้าหลัก', icon: <Home className="w-5 h-5" />, path: '/' },
-    { title: 'การคำนวน', icon: <MdOutlineCalculate className="w-6 h-6" />, path: '/carrental/calculator' },
-    { title: 'ผู้ใช้งาน', icon: <Users className="w-5 h-5" />, path: '/employee/dashboard' },
   ];
-
-  // Add the "อัพโหลดไฟล์ราคา" item only if the role is 1
-  if (roles === '1') {
-    menuItems.push({
-      title: 'อัพโหลดไฟล์ราคา',
-      icon: <MdOutlineCloudUpload className="w-5 h-5" />,
-      path: '/carrental/upload',
-    });
-  }
 
   const handleLogout = () => {
     Cookies.remove('token');
