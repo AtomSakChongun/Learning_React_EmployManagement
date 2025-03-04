@@ -1,17 +1,24 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, useLocation } from "react-router-dom";
 import Dashbord_View from "./page/dashbord/dashbord_view";
 import UserInfo_View from "./page/userInfo/userinfo_view";
+import LoginView from "./page/authen/login_view";
 import Sidebar from "./component/sidebar/sidebar";
 import "./App.css";
 
-function App() {
+function Layout() {
+  const location = useLocation();
+  const isLoginPage = location.pathname === "/login";
+
   return (
-    <Router>
-      <div className="flex h-screen overflow-hidden">
-        <Sidebar />
-        <div className="flex-1 overflow-auto bg-gray-100">
-          <header className="bg-gray-800 shadow-md">
+    <div className="flex h-screen overflow-hidden">
+      {/* แสดง Sidebar เฉพาะเมื่อไม่ใช่หน้า Login */}
+      {!isLoginPage && <Sidebar />}
+
+      <div className="flex-1 overflow-auto bg-gray-100">
+        {/* แสดง Header เฉพาะเมื่อไม่ใช่หน้า Login */}
+        {!isLoginPage && (
+          <header className="bg-gray-700 shadow-md">
             <div className="container mx-auto px-4 py-4 flex justify-between items-center">
               <h1 className="text-2xl font-bold text-white">แดชบอร์ดพนักงาน</h1>
               <div className="flex items-center space-x-4">
@@ -21,16 +28,23 @@ function App() {
               </div>
             </div>
           </header>
-          <Routes>
-            <Route path="/" element={<Dashbord_View />} />
-            <Route path="/user-info" element={<UserInfo_View />} />
-            <Route path="/employee/dashboard" element={<UserInfo_View />} />
-            <Route path="/carrental/calculator" element={<Dashbord_View />} />
-            {/* Add this route only if you have the component */}
-            <Route path="/carrental/upload" element={<Dashbord_View />} />
-          </Routes>
-        </div>
+        )}
+
+        {/* กำหนด Routes */}
+        <Routes>
+          <Route path="/login" element={<LoginView />} />
+          <Route path="/" element={<Dashbord_View />} />
+          <Route path="/user-info" element={<UserInfo_View />} />
+        </Routes>
       </div>
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <Layout />
     </Router>
   );
 }
