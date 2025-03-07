@@ -3,13 +3,13 @@ import {
   Box,
   Button,
   Container,
-  TextField,
   Typography,
   Grid,
   Paper,
 } from "@mui/material";
 import { useParams, useNavigate } from "react-router-dom";
 import employeesData from "../../data/employee.json"; // Import the JSON file
+import TextFieldCustom from "../../component/textfieldcustom/textfieldcustom";
 
 const UserInfo_View = () => {
   const { id } = useParams();
@@ -55,95 +55,60 @@ const UserInfo_View = () => {
           <Grid container spacing={3}>
             {/* Form Fields */}
             <Grid item xs={12} md={6}>
-              <Typography marginBottom={1}>รหัสพนักงาน</Typography>
-              <TextField
-                required
-                fullWidth
-                id="employeeId"
-                label="รหัสพนักงาน"
-                name="employeeId"
+              <TextFieldCustom
+                title="รหัสพนักงาน"
                 value={formData.employeeId}
-                size="small"
+                name="employeeId"
                 disabled
               />
             </Grid>
             <Grid item xs={12} md={6}>
-              <Typography marginBottom={1}>รหัสผ่าน</Typography>
-              <TextField
-                required
-                fullWidth
-                id="password"
-                label="รหัสผ่าน"
+              <TextFieldCustom
+                title="รหัสผ่าน"
                 name="password"
                 type="password"
                 value={formData.password}
-                size="small"
                 disabled
               />
             </Grid>
             <Grid item xs={12} md={6}>
-              <Typography marginBottom={1}>ชื่อจริง</Typography>
-              <TextField
-                required
-                fullWidth
-                id="firstName"
-                label="ชื่อจริง"
+              <TextFieldCustom
+                title="ชื่อจริง"
                 name="firstName"
                 value={formData.firstName}
-                size="small"
                 disabled
               />
             </Grid>
             <Grid item xs={12} md={6}>
-              <Typography marginBottom={1}>นามสกุล</Typography>
-              <TextField
-                required
-                fullWidth
-                id="lastName"
-                label="นามสกุล"
+              <TextFieldCustom
+                title="นามสกุล"
                 name="lastName"
                 value={formData.lastName}
-                size="small"
                 disabled
               />
             </Grid>
             <Grid item xs={12} md={6}>
-              <Typography marginBottom={1}>แผนก</Typography>
-              <TextField
-                required
-                fullWidth
-                id="department"
-                label="แผนก"
+              <TextFieldCustom
+                title="แผนก"
                 name="department"
                 value={formData.department}
-                size="small"
                 disabled
               />
             </Grid>
             <Grid item xs={12} md={6}>
-              <Typography marginBottom={1}>อีเมล</Typography>
-              <TextField
-                required
-                fullWidth
-                id="email"
-                label="อีเมล"
+              <TextFieldCustom
+                title="อีเมล"
                 name="email"
                 type="email"
                 value={formData.email}
-                size="small"
                 disabled
               />
             </Grid>
             <Grid item xs={12} md={6}>
-              <Typography marginBottom={1}>เบอร์โทร</Typography>
-              <TextField
-                required
-                fullWidth
-                id="phone"
-                label="เบอร์โทร"
+              <TextFieldCustom
+                title="เบอร์โทร"
                 name="phone"
                 value={formData.phone}
-                size="small"
                 disabled
               />
             </Grid>
