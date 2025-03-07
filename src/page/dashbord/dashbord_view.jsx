@@ -2,7 +2,6 @@ import React, { useState, useMemo, useEffect } from "react";
 import {
   Card,
   InputAdornment,
-  TextField,
   Button,
   Dialog,
   DialogActions,
@@ -15,6 +14,7 @@ import * as XLSX from "xlsx";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import employeesData from "../../data/employee.json"; // Import the JSON file
+import TextFieldCustom from "../../component/textfieldcustom/textfieldcustom";
 
 const Dashboard_View = () => {
   const navigate = useNavigate();
@@ -247,20 +247,11 @@ const Dashboard_View = () => {
 
         <Card className="p-2 mb-4 shadow-sm rounded-xl">
           {/* ช่องค้นหาพนักงาน */}
-          <TextField
-            variant="outlined"
-            fullWidth
-            placeholder="ค้นหาพนักงาน..."
+          <TextFieldCustom
+            title="ค้นหาพนักงาน..."
             value={search}
+            name="search"
             onChange={(e) => setSearch(e.target.value)}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  {/* ไอคอนค้นหา */}
-                  <Search size={18} />
-                </InputAdornment>
-              ),
-            }}
           />
         </Card>
 
@@ -294,22 +285,17 @@ const Dashboard_View = () => {
           {currentEmployee.id ? "Edit Employee" : "Add Employee"}
         </DialogTitle>
         <DialogContent>
-          <TextField
-            autoFocus
-            margin="dense"
-            label="Name"
-            type="text"
-            fullWidth
+          <TextFieldCustom
+            title="Name"
+            name="name"
             value={currentEmployee.name}
             onChange={(e) =>
               setCurrentEmployee({ ...currentEmployee, name: e.target.value })
             }
           />
-          <TextField
-            margin="dense"
-            label="Department"
-            type="text"
-            fullWidth
+          <TextFieldCustom
+            title="Department"
+            name="department"
             value={currentEmployee.department}
             onChange={(e) =>
               setCurrentEmployee({
@@ -318,31 +304,27 @@ const Dashboard_View = () => {
               })
             }
           />
-          <TextField
-            margin="dense"
-            label="Email"
+          <TextFieldCustom
+            title="Email"
+            name="email"
             type="email"
-            fullWidth
             value={currentEmployee.email}
             onChange={(e) =>
               setCurrentEmployee({ ...currentEmployee, email: e.target.value })
             }
           />
-          <TextField
-            margin="dense"
-            label="Phone"
-            type="text"
-            fullWidth
+          <TextFieldCustom
+            title="Phone"
+            name="phone"
             value={currentEmployee.phone}
             onChange={(e) =>
               setCurrentEmployee({ ...currentEmployee, phone: e.target.value })
             }
           />
-          <TextField
-            margin="dense"
-            label="Salary"
+          <TextFieldCustom
+            title="Salary"
+            name="salary"
             type="number"
-            fullWidth
             value={currentEmployee.salary}
             onChange={(e) =>
               setCurrentEmployee({ ...currentEmployee, salary: e.target.value })

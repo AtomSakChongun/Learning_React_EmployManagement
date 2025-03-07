@@ -1,9 +1,9 @@
 import React from "react";
 import { Box, Typography, TextField } from "@mui/material";
 
-const TextFieldCustom = ({ title, value, name, type = "text", disabled = false }) => {
+const TextFieldCustom = ({ title, value, name, type = "text", disabled = false, onClick, onChange }) => {
   return (
-    <Box>
+    <Box mb={2}>
       <Typography variant="subtitle1" gutterBottom>
         {title}
       </Typography>
@@ -18,9 +18,11 @@ const TextFieldCustom = ({ title, value, name, type = "text", disabled = false }
         disabled={disabled}
         type={type}
         variant="outlined"
+        onClick={onClick}
+        onChange={onChange}
       />
     </Box>
   );
-};
+};  
 
 export default TextFieldCustom;
