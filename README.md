@@ -1,6 +1,6 @@
 # Employee Management System
 
-This project is an Employee Management System built using **React**, **Tailwind CSS**, and **Material-UI (MUI)**. The system is designed to manage employee data and display it in an interactive and user-friendly way.
+This project is an Employee Management System build using **React**, **Tailwind CSS**, and **Material-UI (MUI)**. The system is designed to manage employee data and display it in an interactive and user-friendly way.
 
 ## Features
 
@@ -34,7 +34,7 @@ This project uses mock data for demonstration purposes. No actual database conne
 
 ## Technologies
 
-- React
+- Vite React
 - Tailwind CSS
 - Material-UI
 - React Router
@@ -44,3 +44,9 @@ This project uses mock data for demonstration purposes. No actual database conne
 - [React](https://reactjs.org/)
 - [Tailwind CSS](https://tailwindcss.com/)
 - [Material-UI](https://mui.com/)
+
+## Live Demo
+
+ทดลองใช้งานแอปพลิเคชัน Employee Management System ผ่านลิงก์ด้านล่าง:
+
+🔗 **[Live Demo](https://learningreactemsatomsak.netlify.app/)**  
